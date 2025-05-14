@@ -1,0 +1,6 @@
+streamlit>=1.32.0
+openai>=1.12.0
+asyncio
+edge-tts
+requests
+python-dotenv
