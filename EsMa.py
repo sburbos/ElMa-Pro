@@ -17,7 +17,7 @@ if not st.experimental_user.is_logged_in:
     if st.button("Sign In"):
         st.login("auth0")
 
-logged_in_name = st.json(st.experimental_user.name)
+logged_in_name = st.experimental_user.name
 try:
     # Access nested secrets
     api_key = st.secrets.openrouter.OPENAI_API_KEY
