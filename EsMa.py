@@ -15,7 +15,7 @@ st.set_page_config(
 # Debug: Show loaded secrets (remove after testing)
 left, middle, right = st.columns(3, vertical_alignment="center")
 if not st.user.is_logged_in:
-    if center.button("Sign In"):
+    if middle.button("Sign In"):
         st.login("auth0")
     st.stop()  # Stop execution if not logged in
 
