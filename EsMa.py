@@ -2,7 +2,7 @@ import streamlit as st
 
 from openai import OpenAI
 import edge_tts
-import asyncio
+
 
 
 # Initialize the OpenAI client with proper configuration
@@ -13,7 +13,11 @@ st.set_page_config(
     layout="wide"
 )
 # Debug: Show loaded secrets (remove after testing)
+if not st.experimental_user.is_logged_in:
+    if st.button("Sign In"):
+        st.login("auth0")
 
+logged_in_name = st.json(st.experimental_user.name)
 try:
     # Access nested secrets
     api_key = st.secrets.openrouter.OPENAI_API_KEY
@@ -53,6 +57,7 @@ list_essay_type = [
     "Compare/Contrast","Critique", "Definition", "General"
 ]
 
+
 list_level = ["Elementary", "Junior High", "Senior High", "Undergraduate", "Graduate", "Postgraduate", "PhD", "Masters", "Doctorate"]
 list_speech_type = ["Casual", "Intimate", "Formal", "Frozen", "Consultative"]
 left, right = st.columns(2, vertical_alignment="top")
@@ -85,7 +90,7 @@ def ai_assistant(prompt):
 def main():
     with st.container():
         left.subheader("EsMa by Elley")
-        left.title("Your Free Essay Maker Tool")
+        left.title(f"Hi {logged_in_name} Your Free Essay Maker Tool")
         right.subheader("")
         right.title("")
     with st.container():
