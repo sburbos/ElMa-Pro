@@ -16,7 +16,9 @@ st.set_page_config(
 if not st.user.is_logged_in:
     if st.button("Sign In"):
         st.login("auth0")
+    st.stop()  # Stop execution if not logged in
 
+# Now safely access user info
 logged_in_name = st.user.name
 try:
     # Access nested secrets
