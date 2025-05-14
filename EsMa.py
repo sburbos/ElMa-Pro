@@ -13,14 +13,22 @@ st.set_page_config(
     layout="wide"
 )
 # Debug: Show loaded secrets (remove after testing)
-if not st.user.is_logged_in:
-    # Show login button
-    if st.button("Sign In"):
-        st.login()
-    st.stop()  # Stop execution if not logged in
+if not st.runtime.exists():
+    st.warning("Authentication not configured - running in development mode")
+    logged_in_name = "Developer"
+else:
+    # Production authentication flow
+    if not st.user.is_logged_in:
+        st.write("Please sign in to access EsMa Pro")
+        if st.button("Sign In"):
+            try:
+                st.login()
+                st.rerun()
+            except Exception as auth_error:
+                st.error(f"Authentication failed: {str(auth_error)}")
+        st.stop()
 
-# Now safely access user info
-logged_in_name = st.user.email
+    logged_in_name = st.user.email or st.user.name or "User"
 try:
     # Access nested secrets
     api_key = st.secrets.openrouter.OPENAI_API_KEY
