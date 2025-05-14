@@ -13,14 +13,14 @@ st.set_page_config(
     layout="wide"
 )
 # Debug: Show loaded secrets (remove after testing)
-left, middle, right = st.columns(3, vertical_alignment="center")
 if not st.user.is_logged_in:
-    if middle.button("Sign In"):
-        st.login("auth0")
+    # Show login button
+    if st.button("Sign In"):
+        st.login()
     st.stop()  # Stop execution if not logged in
 
 # Now safely access user info
-logged_in_name = st.user.name
+logged_in_name = st.user.email
 try:
     # Access nested secrets
     api_key = st.secrets.openrouter.OPENAI_API_KEY
