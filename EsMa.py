@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 # Debug: Show loaded secrets (remove after testing)
-if not st.experimental_user.is_logged_in:
+if not st.user.is_logged_in:
     if st.button("Sign In"):
         st.login("auth0")
 
